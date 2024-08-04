@@ -16,10 +16,23 @@ class _HomePageState extends State<HomePage> {
   List<DietModel> diets = [];
   List<PopularModel> populars = [];
 
+  String userName = 'Nelson';
+  TextEditingController newUserNameController = TextEditingController();
+
   void _getInitialInfo() {
     categories = CategoryModel.getCategories();
     diets = DietModel.getDiets();
     populars = PopularModel.getPopulars();
+  }
+
+  void _userName() {
+    setState(() {
+      if (newUserNameController.text == '') {
+        newUserNameController.text = 'Nelson';
+      } else {
+        userName = newUserNameController.text;
+      }
+    });
   }
 
   @override
@@ -30,6 +43,22 @@ class _HomePageState extends State<HomePage> {
       appBar: appBar(),
       body: ListView(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Hi, $userName',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 25),
+                ),
+                ElevatedButton(
+                    onPressed: _userName,
+                    child: const Text('Tap to change name'))
+              ],
+            ),
+          ),
           _searchField(),
           const SizedBox(height: 40),
           _categoriesSection(),
@@ -288,6 +317,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       child: TextField(
+        controller: newUserNameController,
         decoration: InputDecoration(
           hintText: 'Search Pancake',
           hintStyle: const TextStyle(color: Color(0xffDDDADA), fontSize: 14),
