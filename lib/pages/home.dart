@@ -170,7 +170,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
         const SizedBox(height: 15),
-        Container(
+        SizedBox(
           height: 240,
           child: ListView.separated(
               itemCount: diets.length,
